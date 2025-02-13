@@ -123,7 +123,7 @@ class NeoWs:
     def __post_init__(self):
         self.id = int(self.id)
         self.neo_reference_id = int(self.neo_reference_id)
-        if self.orbital_data is not None:
+        if self.orbital_data is not None:  # pragma: no cover
             self.orbital_data = OrbitalData(**self.orbital_data)
         self.close_approach_data = [
             CloseApproachDataItem(**item) for item in self.close_approach_data

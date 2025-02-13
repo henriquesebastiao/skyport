@@ -1,5 +1,8 @@
 from datetime import date
 
+import pytest
+
+from skyport.exceptions import InvalidDateFormat
 from skyport.types import Apod
 
 
@@ -58,3 +61,27 @@ def test_get_apod_timeline_with_date_parameters(source):
 def test_get_apod_random(source):
     apods = source.apod_random(5)
     assert isinstance(apods, list)
+
+
+def test_apod_with_invalid_date_string(source):
+    with pytest.raises(
+        InvalidDateFormat,
+        match='The 2025-02-30 date is invalid, the date must follow ISO 8601.',
+    ):
+        source.apod('2025-02-30')
+
+
+def test_apod_time_line_with_invalid_start_date(source):
+    with pytest.raises(
+        InvalidDateFormat,
+        match='The 2025-02-30 date is invalid, the date must follow ISO 8601.',
+    ):
+        source.apod_timeline('2025-02-30', '2025-03-01')
+
+
+def test_apod_time_line_with_invalid_end_date(source):
+    with pytest.raises(
+        InvalidDateFormat,
+        match='The 2025-02-30 date is invalid, the date must follow ISO 8601.',
+    ):
+        source.apod_timeline('2025-01-01', '2025-02-30')

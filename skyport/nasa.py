@@ -8,10 +8,12 @@ from typing import Optional, Union
 
 import requests
 
+from skyport._utils import valid_date
 from skyport.exceptions import (
     ApiKeyInvalid,
     ApiKeyLimitExceeded,
     IncompatibleParameterFormat,
+    InvalidDateFormat,
     ItemNotFound,
 )
 from skyport.types import Apod, NeoWs
@@ -91,6 +93,12 @@ class Nasa:
         Returns:
             Apod: Returns a dataclass containing all the APOD data.
         """
+        if isinstance(date, str):
+            if not valid_date(date):
+                raise InvalidDateFormat(
+                    f'The {date} date is invalid, the date must follow ISO 8601.'
+                )
+
         if isinstance(date, dt):
             date = date.isoformat()
         if date is None:
@@ -111,6 +119,13 @@ class Nasa:
         Returns:
             list[Apod]: A list containing dataclasses containing all data from all retrieved items.
         """
+        for date in (start_date, end_date):
+            if isinstance(date, str):
+                if not valid_date(date):
+                    raise InvalidDateFormat(
+                        f'The {date} date is invalid, the date must follow ISO 8601.'
+                    )
+
         if isinstance(start_date, dt):
             start_date = start_date.isoformat()
         if isinstance(end_date, dt):

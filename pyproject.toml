@@ -16,6 +16,7 @@ pytest = "^8.3.4"
 pytest-cov = "^6.0.0"
 coverage = {extras = ["toml"], version = "^7.6.12"}
 radon = "^6.0.1"
+python-dotenv = "^1.0.1"
 
 [build-system]
 requires = ["poetry-core"]
@@ -38,7 +39,7 @@ select = [
     "UP",  # pyupgrade
     "D",   # pydocstyle
 ]
-ignore = ["D205", "E501", "D107"]
+ignore = ["D205", "E501", "D107", "PLC2701"]
 
 [tool.ruff.format]
 preview = true
@@ -51,6 +52,7 @@ quote-style = "single"
 "skyport/types/*" = ["D"]
 "skyport/exceptions/*" = ["D101"]
 "**/**/__init__.py" = ["D"]
+"test_neows.py" = ["PLR2004"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"

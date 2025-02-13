@@ -1,7 +1,10 @@
+import os
+
 import pytest
 
 from skyport import Nasa
 from skyport.exceptions import ApiKeyInvalid, IncompatibleParameterFormat, ItemNotFound
+from skyport.nasa import Endpoint
 
 invalid_source = Nasa('key-invalid')
 
@@ -16,7 +19,13 @@ def test_exception_of_incompatible_parameter_format(source):
         IncompatibleParameterFormat,
         match='The provided parameter is incompatible with the expected format.',
     ):
-        source.apod('incompatible_parameter_format')
+        source._get(
+            Endpoint.APOD,
+            {
+                'api_key': os.getenv('NASA_API_KEY_TEST', 'DEMO_KEY'),
+                'date': 'invalid-parameter',
+            },
+        )
 
 
 def test_exception_item_not_found(source):

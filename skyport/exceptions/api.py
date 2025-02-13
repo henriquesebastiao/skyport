@@ -15,3 +15,7 @@ class IncompatibleParameterFormat(Exception):
 
 class ItemNotFound(Exception):
     pass
+
+
+class InvalidDateFormat(Exception):
+    pass
