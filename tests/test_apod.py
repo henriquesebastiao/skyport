@@ -46,7 +46,7 @@ def test_get_apod_with_str_parameter(source):
 
 
 def test_get_apod_with_date_parameter(source):
-    apod = source.apod(datetime.now().date())
+    apod = source.apod(date(2025, 2, 12))
     assert isinstance(apod, Apod)
 
 
