@@ -41,7 +41,7 @@ def test_get_apod_timeline_with_str_parameters(source):
 
 
 def test_get_apod_with_str_parameter(source):
-    apod = source.apod(datetime.now().date().isoformat())
+    apod = source.apod('2025-02-12')
     assert isinstance(apod, Apod)
 
 
